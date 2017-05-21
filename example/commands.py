@@ -72,13 +72,13 @@ def status(client, app_id):
     content = json.loads(response.content)
     return {'success': True,
             'message': '\n'.join(
-                ['%s: %s' % (k, v) for k, v in content.items()])}
+                ['%s: %s' % (k, v) for k, v in list(content.items())])}
 
 
 def update(client, app_id):
 
     def get_value(key, val):
-        variable = raw_input('%s (%s): ' % (key, val))
+        variable = input('%s (%s): ' % (key, val))
         if key in truthy_keys and not variable and not val:
             sys.stdout.write('This parameter is required.\n')
             variable = get_value(key, val)
@@ -92,12 +92,12 @@ def update(client, app_id):
     # obtaining current data
     data = json.loads(client.status(app_id).content)
     data['payment_type'] = data['premium_type']
-    for key in data.keys():
+    for key in list(data.keys()):
         if key not in editable_keys:
             del data[key]
     sys.stderr.write('Please provide data, hit Enter for no change\n')
 
-    for key, val in data.items():
+    for key, val in list(data.items()):
         if key in editable_keys:
             variable = get_value(key, val)
             if variable != '':
@@ -123,7 +123,7 @@ def add_screenshot(client, app_id, filename):
     content = json.loads(response.content)
     return {'success': True,
             'message': '\n'.join(
-                ['%s: %s' % (k, v) for k, v in content.items()])}
+                ['%s: %s' % (k, v) for k, v in list(content.items())])}
 
 
 def get_screenshot(client, screenshot_id):
@@ -135,7 +135,7 @@ def get_screenshot(client, screenshot_id):
     content = json.loads(response.content)
     return {'success': True,
             'message': '\n'.join(
-                ['%s: %s' % (k, v) for k, v in content.items()])}
+                ['%s: %s' % (k, v) for k, v in list(content.items())])}
 
 
 def add_content_ratings(client, app_id, submission_id, security_code):
@@ -181,4 +181,4 @@ def app_state(client, app_id, status=None, disabled_by_user=None):
     content = json.loads(response.content)
     return {'success': True,
             'message': '\n'.join(
-                ['%s: %s' % (k, v) for k, v in content.items()])}
+                ['%s: %s' % (k, v) for k, v in list(content.items())])}

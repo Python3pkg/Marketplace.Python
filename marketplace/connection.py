@@ -3,7 +3,7 @@
 
 import json
 import logging
-import urllib
+import urllib.request, urllib.parse, urllib.error
 
 import requests
 from oauthlib import oauth1
@@ -44,7 +44,7 @@ class Connection:
             url, http_method=method, headers=headers)
         if body:
             if method == 'GET':
-                body = urllib.urlencode(body)
+                body = urllib.parse.urlencode(body)
             else:
                 body = json.dumps(body)
         headers.update(signed_headers)

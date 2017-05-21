@@ -2,8 +2,8 @@ import argparse
 import logging
 import sys
 
-import commands
-import config
+from . import commands
+from . import config
 
 import marketplace
 
@@ -31,7 +31,7 @@ def main():
         description='Command line Marketplace client')
     parser.add_argument('method', type=str,
                         help='command to be run on arguments',
-                        choices=COMMANDS.keys())
+                        choices=list(COMMANDS.keys()))
     parser.add_argument('attrs', metavar='attr', type=str, nargs='*',
                         help='command arguments')
     parser.add_argument('-v', action='store_true', default=False,

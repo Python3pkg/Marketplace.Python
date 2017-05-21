@@ -11,7 +11,7 @@ import mimetypes
 
 from base64 import b64encode
 
-from urlparse import urlunparse
+from urllib.parse import urlunparse
 
 from .connection import Connection
 

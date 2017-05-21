@@ -1,7 +1,7 @@
 import json
 import logging
 import unittest
-import urllib
+import urllib.request, urllib.parse, urllib.error
 
 import requests
 from oauthlib import oauth1
@@ -80,7 +80,7 @@ class TestConnection(unittest.TestCase):
         self.assertEquals(prepared['data'], json.dumps(data))
 
         prepared = self.conn.prepare_request('GET', 'http://ex.com', data)
-        self.assertEquals(prepared['data'], urllib.urlencode(data))
+        self.assertEquals(prepared['data'], urllib.parse.urlencode(data))
 
     def test_get(self):
         requests.get = Mock(return_value=Response(200, '{}'))
